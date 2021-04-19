@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script>
+
+            function Clicked(iNumber){
+                alert(iNumber)
+            }
+
+            function Create(){
+
+                document.getElementById("ReplaceMe").innerHTML = GenerateTable(2,3)
+            }
+
+            function GenerateTable(iRows,iColumns){
+                var tContent = "<table>"
+                for (i = 0; i < iRows; i++){
+                    tContent += "<tr>"
+                    for (j = 0; j < iColumns; j++){
+                    tContent += "<td>" + '<img src="CardBack.png" width="150px" height="250px" onclick="Clicked(' + GetCardNumber(iRows,i,iColumns,j) + ')">' + "</td>"
+                    }
+                    tContent += "</tr>"
+                }
+                tContent += "</table>"
+                return tContent
+            }
+
+            function GetCardNumber(iRows,iRow,iColumns,iCol){
+                var cardNumber
+                cardNumber = ((iRow) * iColumns) + iCol
+                return cardNumber
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <h1>
+            This is the game header
+        </h1>
+        <hr>
+        <button onclick="Create()">Make content</button>
+        <div id="ReplaceMe">
+
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+            </table>
+        </div>
+        <img src="CardBack.png" width="150px" height="250px" onclick="Clicked(1)">
+    </body>
+</html>
