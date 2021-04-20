@@ -1,22 +1,37 @@
 <html>
     <head>
+        <style>
+            
+            /* not sure why the first css selector isnt working*/
+            gamebutton{
+                background-color: blue;
+                color:brown;
+                
+            }
+            button {
+                background-color: blue;
+                color: brown;
+            }
+        </style>
         <script>
 
-            function Clicked(iNumber){
-                alert(iNumber)
+            function Clicked(iNumber) {
+                document.getElementById(iNumber).src = iNumber + ".png";
             }
 
             function Create(){
 
-                document.getElementById("ReplaceMe").innerHTML = GenerateTable(2,3)
+                document.getElementById("ReplaceMe").innerHTML = GenerateTable(2,5)
             }
 
             function GenerateTable(iRows,iColumns){
                 var tContent = "<table>"
+                var cNum = 0
                 for (i = 0; i < iRows; i++){
                     tContent += "<tr>"
                     for (j = 0; j < iColumns; j++){
-                    tContent += "<td>" + '<img src="CardBack.png" width="150px" height="250px" onclick="Clicked(' + GetCardNumber(iRows,i,iColumns,j) + ')">' + "</td>"
+                        cNum = GetCardNumber(iRows, i, iColumns, j)
+                        tContent += "<td>" + '<img id=' + cNum + ' src="CardBack.png" width="150px" height="250px" onclick="Clicked(' + cNum + ')">' + "</td>"
                     }
                     tContent += "</tr>"
                 }
@@ -27,7 +42,7 @@
             function GetCardNumber(iRows,iRow,iColumns,iCol){
                 var cardNumber
                 cardNumber = ((iRow) * iColumns) + iCol
-                return cardNumber
+                return cardNumber + 1
             }
 
 
@@ -38,7 +53,7 @@
             This is the game header
         </h1>
         <hr>
-        <button onclick="Create()">Make content</button>
+        <button class="gamebutton" onclick="Create()">New Game</button>
         <div id="ReplaceMe">
 
         </div>
