@@ -13,7 +13,10 @@
                 color: brown;
             }
         </style>
+        <script src="Test.js"></script>
         <script>
+
+            var testlist = [];
 
             var cardList = [
                 { index: 0, design: 0, visible: 0 },
@@ -28,6 +31,15 @@
             function Create(){
 
                 document.getElementById("ReplaceMe").innerHTML = GenerateTable(2,5)
+            }
+
+            function additems(){
+                var newitem = {one:1,two:2,three:3};
+                for (i=0;i<6;i++){
+                    testlist.push(newitem);
+                };
+                alert(testlist.length);
+                alert(testlist[5].one);
             }
 
             function GenerateTable(iRows,iColumns){
@@ -116,6 +128,9 @@
         <button class="gamebutton" onclick="Create()">New Game</button>
         <button class="gamebutton" onclick="makecard()">Test make card</button>
         <button class="gamebutton" onclick="changeValue()">Change Value</button>
+        <div>
+            <button class="gamebutton" onclick="additems()">more test</button>
+        </div>
         <div id="ReplaceMe">
 
         </div>
