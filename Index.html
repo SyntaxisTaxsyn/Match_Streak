@@ -15,6 +15,12 @@
         </style>
         <script>
 
+            var cardList = [
+                { index: 0, design: 0, visible: 0 },
+                { index: 1, design: 1, visible: 0 },
+                { index: 2, design: 2, visible: 0 },
+            ];
+
             function Clicked(iNumber) {
                 document.getElementById(iNumber).src = iNumber + ".png";
             }
@@ -45,6 +51,60 @@
                 return cardNumber + 1
             }
 
+            class Card {
+
+                _iCardNumber;
+                _iDesignNumber;
+                _iVisibleState;
+
+
+                constructor(iCardNo,iDesignNo) {
+                    this._iCardNumber = iCardNo;
+                    this._iDesignNumber = iDesignNo;
+                    this._iVisibleState = 0;
+                }
+
+                get VisibilityState() {
+                    return this._iVisibleState;
+                }
+
+                set VisibilityState(bVis) {
+                    if (bVis == true) {
+                        this._iVisibleState = 1;
+                    } else {
+                        this._iVisibleState = 0;
+                    }
+
+                 
+                }
+
+            }
+
+            function makecard() {
+
+                /*
+                let newcard = new Card(1, 2);
+                alert(newcard.VisibilityState);
+                newcard.VisibilityState = true;
+                alert(newcard.VisibilityState);
+                var myList = new Array();
+
+                for (var i = 1; i < 3; i++) {
+                    let newcard = new Card(i, 2);
+                    myList.push(newcard);
+                }
+
+                alert(myList[0].VisibilityState + myList[1].VisibilityState);
+                */
+                alert(cardList[0].index);
+                cardList[0].index = 3;
+                alert(cardList[0].index);
+            }
+
+            function changeValue() {
+                cardList[0].index = 2
+            }
+
 
         </script>
     </head>
@@ -54,6 +114,8 @@
         </h1>
         <hr>
         <button class="gamebutton" onclick="Create()">New Game</button>
+        <button class="gamebutton" onclick="makecard()">Test make card</button>
+        <button class="gamebutton" onclick="changeValue()">Change Value</button>
         <div id="ReplaceMe">
 
         </div>
