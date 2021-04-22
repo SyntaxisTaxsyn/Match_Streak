@@ -16,6 +16,8 @@
         </style>
         <script>
 
+            window.onload = function() { Create() };
+
             // Declare script variables
             // Care must be taken here to ensure the product of rows*columns = suits * 2
             var rows = 2
@@ -32,6 +34,30 @@
             ];
             */
 
+            function randomizeCardSuits() {
+
+                // Generate the random suits for the cards
+                for (r = 1; r <= rows; r++) {
+                    for (c = 1; c <= columns; c++) {
+
+                        var noMatch = false;
+                        var randomSuit = 0;
+
+                        do {
+                            // Find an unassigned element in the list
+                            randomSuit = (Math.floor(Math.random() * (rows * columns)));
+                            if (cardList[randomSuit].design == 0) {
+                                cardList[randomSuit].design = c;
+                                noMatch = true;
+                            }
+
+                        } while (noMatch == false);
+
+                    }
+                }
+
+            }
+
             function GenerateCards(){
 
                 cardlist = []; // assign it to empty array to start again
@@ -44,25 +70,7 @@
                     IndexCount += 1;
                 }
 
-                // Generate the random suits for the cards
-                for (r=1; r<=rows; r++){
-                    for (c=1; c<=columns; c++){
-
-                        var noMatch = false;
-                        var randomSuit = 0;
-
-                        do {
-                            // Find an unassigned element in the list
-                            randomSuit = (Math.floor(Math.random() * (rows*columns)));
-                            if(cardList[randomSuit].design == 0){
-                                cardList[randomSuit].design = c;
-                                noMatch = true;
-                            }
-
-                        } while (noMatch == false);
-
-                    }
-                }
+                randomizeCardSuits();
 
             }
 
@@ -70,11 +78,11 @@
                 var suitToShow = cardList[iNumber-1].design
                 if(cardList[iNumber-1].visible == 0){
                     document.getElementById(iNumber).src = suitToShow + ".png";
-                    cardList[iNumber-1].visible == 1
+                    cardList[iNumber-1].visible = 1
 
                 } else {
                     document.getElementById(iNumber).src = "CardBack.png";
-                    cardList[iNumber-1].visible == 0
+                    cardList[iNumber-1].visible = 0
                 }
                 
             }
@@ -115,33 +123,26 @@
                 return cardNumber + 1
             }
 
-            class Card {
 
-                _iCardNumber;
-                _iDesignNumber;
-                _iVisibleState;
+            function resetGame() {
 
+                turnAllCardsOver();
+                resetSuitIds();
+                randomizeCardSuits();
 
-                constructor(iCardNo,iDesignNo) {
-                    this._iCardNumber = iCardNo;
-                    this._iDesignNumber = iDesignNo;
-                    this._iVisibleState = 0;
+            }
+
+            function turnAllCardsOver() {
+                for (i = 0; i < cardList.length; i++) {
+                    cardList[i].visible = 0;
+                    document.getElementById(i+1).src = "CardBack.png";
                 }
+            }
 
-                get VisibilityState() {
-                    return this._iVisibleState;
+            function resetSuitIds() {
+                for (i = 0; i < cardList.length; i++) {
+                    cardList[i].design = 0;
                 }
-
-                set VisibilityState(bVis) {
-                    if (bVis == true) {
-                        this._iVisibleState = 1;
-                    } else {
-                        this._iVisibleState = 0;
-                    }
-
-                 
-                }
-
             }
 
             function makecard() {
@@ -177,24 +178,10 @@
             Match Streak V1.0 - By Paul Speirs (c) 2021
         </h1>
         <hr>
-        <button class="gamebutton" onclick="Create()">New Game</button>
-        <button class="gamebutton" onclick="makecard()">Test make card</button>
-        <button class="gamebutton" onclick="changeValue()">Change Value</button>
-        <div>
-            <button class="gamebutton" onclick="additems()">more test</button>
-        </div>
+        <button class="gamebutton" onclick="resetGame()">Reset Game</button>
+        <hr />
         <div id="ReplaceMe">
 
         </div>
-        <div>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-            </table>
-        </div>
-        <img src="CardBack.png" width="150px" height="250px" onclick="Clicked(1)">
     </body>
 </html>
