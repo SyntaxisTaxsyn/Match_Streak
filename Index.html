@@ -24,15 +24,16 @@
 
             // Declare script variables
             // Care must be taken here to ensure the product of rows*columns = suits * 2
-            var rows = 2
-            var columns = 5
-            var suits = 5
+            var rows = 1
+            var columns = 4
+            var suits = 2
             var cardList = [];
             var turnedCards = [0,0];
             var turnedCardIndex = 0;
             var moves = 0;
             var storedHighScore = 999;
             var blockNewMoves = false;
+            var suitSelect = 0;
 
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
@@ -83,11 +84,16 @@
                         var noMatch = false;
                         var randomSuit = 0;
 
+                        suitSelect += 1;
+                        if(suitSelect>suits){
+                            suitSelect = 1;
+                        }
+
                         do {
                             // Find an unassigned element in the list
                             randomSuit = (Math.floor(Math.random() * (rows * columns)));
                             if (cardList[randomSuit].design == 0) {
-                                cardList[randomSuit].design = c;
+                                cardList[randomSuit].design = suitSelect;
                                 noMatch = true;
                             }
 
