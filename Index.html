@@ -29,11 +29,27 @@
             var suits = 2
             var cardList = [];
             var turnedCards = [0,0];
+            var level = 1;
             var turnedCardIndex = 0;
             var moves = 0;
             var storedHighScore = 999;
             var blockNewMoves = false;
             var suitSelect = 0;
+
+            let levelData = [
+                {rows:1,columns:4,suits:2},
+                {rows:1,columns:6,suits:3},
+                {rows:2,columns:3,suits:3},
+                {rows:2,columns:4,suits:4},
+                {rows:2,columns:6,suits:6}
+            ]
+
+            function setLevelData(sLevel){
+                var lvl = sLevel - 1;
+                rows = levelData[lvl].rows;
+                columns = levelData[lvl].columns;
+                suits = levelData[lvl].suits;
+            }
 
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
@@ -106,7 +122,7 @@
 
             function GenerateCards(){
 
-                cardlist = []; // assign it to empty array to start again
+                cardList = []; // assign it to empty array to start again
                 var IndexCount = 1;
 
                 // add default card objects to the list
@@ -174,8 +190,16 @@
                 }
 
                 if(isWin == true){
-                    updateUI();
-                    gameOver(true);
+
+                    level += 1;
+
+                    if (level < 6){
+                        Create();
+                    } else {
+                        updateUI();
+                        gameOver(true);
+                    }
+                    
                 }
             }
 
@@ -197,11 +221,13 @@
             }
 
             function Create(){
-
+                
+                setLevelData(level)
                 document.getElementById("ReplaceMe").innerHTML = GenerateTable(rows,columns);
                 GenerateCards();
                 retrieveHighScore();
                 updateUI();
+
             }
 
             function additems(){
@@ -268,6 +294,7 @@
 
             function updateUI(){
                 document.getElementById("moves").innerHTML = "Moves = " + moves.toString() + ", Highscore = " + storedHighScore.toString();
+                document.getElementById("level").innerHTML = "Level - " + level;
             }
 
 
@@ -278,8 +305,10 @@
             Match Streak V1.0 - By Paul Speirs (c) 2021
         </h1>
         <hr>
-        <button class="gamebutton" onclick="resetGame()">Reset Game</button>
+        <button class="gamebutton" onclick="resetGame()">Reset Level</button>
+        <button class="gamebutton" onclick="Create()">create game</button>
         <hr />
+        <h2 id="level">Level - 0</h2>
         <div id="ReplaceMe">
 
         </div>
