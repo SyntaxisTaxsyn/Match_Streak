@@ -18,7 +18,7 @@
                 color:rgb(0, 0, 0);
             }
         </style>
-        <script src="scripts.js"></script>
+        <script src="src/scripts.js"></script>
         <script>
 
             window.onload = function() { Create() };
@@ -36,6 +36,7 @@
             var storedHighScore = 999;
             var blockNewMoves = false;
             var suitSelect = 0;
+            var timer = setInterval(updateClock,1000);
 
             let levelData = [
                 {rows:1,columns:4,suits:2},
@@ -44,6 +45,13 @@
                 {rows:2,columns:4,suits:4},
                 {rows:2,columns:6,suits:6}
             ]
+
+            function updateClock(){
+                if (moves != 0 ){
+                    tick();
+                    updateUI();
+                }
+            }
 
             function setLevelData(sLevel){
                 var lvl = sLevel - 1;
@@ -227,6 +235,7 @@
                 document.getElementById("ReplaceMe").innerHTML = GenerateTable(rows,columns);
                 GenerateCards();
                 retrieveHighScore();
+                tDisplay = "00:00"
                 updateUI();
 
             }
@@ -294,7 +303,8 @@
             }
 
             function updateUI(){
-                document.getElementById("moves").innerHTML = "Moves = " + moves.toString() + ", Highscore = " + storedHighScore.toString();
+                document.getElementById("moves").innerHTML = "Moves = " + moves.toString() + ", Highscore = " + storedHighScore.toString() + 
+                ", Time = " + tDisplay;
                 document.getElementById("level").innerHTML = "Level - " + level;
             }
 
@@ -314,7 +324,7 @@
 
         </div>
         <p id="moves">
-            Moves = 0, Highscore = 0
+            Moves = 0, Highscore = 0, Time = 00:00
         </p>
     </body>
 </html>

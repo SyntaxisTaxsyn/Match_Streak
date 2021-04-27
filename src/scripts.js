@@ -1,3 +1,6 @@
+var tElapsed = 0;
+var tDisplay = "0"
+
 
 // calculates a percentage score based on the supplied criteria
 // range - number - the highest number which is considered as the lowest score
@@ -28,4 +31,29 @@ function calculateScore(moves,time){
     timepcnt = calculatePcnt(maxtime,time,50)*1000;
     return (movepcnt + timepcnt) * 10;
 
+}
+
+// adds 1 second to the local timer and updates the display clock
+function tick(){
+
+    var mins = 0;
+    var secs = 0;
+    var sMins = "";
+
+    tElapsed += 1;
+    mins = Math.trunc(tElapsed / 60);
+    secs = tElapsed % 60;
+    tDisplay = padtime(mins) + ":" + padtime(secs);
+
+}
+
+// adds a leading 0 to an number value if its less then ten
+function padtime(tVal){
+
+    if (tVal < 10){
+        return "0" + tVal.toString();
+    } else {
+        return tVal.toString();
+    }
+    
 }
