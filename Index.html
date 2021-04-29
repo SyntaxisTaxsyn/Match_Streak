@@ -46,6 +46,14 @@
                 {rows:2,columns:6,suits:6}
             ]
 
+            let highScores = [
+                {rank:1,score:1111,name:"AAAA"},
+                {rank:2,score:2222,name:"BBBB"},
+                {rank:3,score:3333,name:"CCCC"},
+                {rank:4,score:4444,name:"DDDD"},
+                {rank:5,score:5555,name:"EEEE"},
+            ]
+
             function updateClock(){
                 if (moves != 0 ){
                     tick();
@@ -308,6 +316,21 @@
                 document.getElementById("level").innerHTML = "Level - " + level;
             }
 
+            // Using an index pointer, update the highscore table with a new set of values
+            function updateHighscoreTable(newScore,newName,index){
+                highScores[index-1].score = newScore;
+                highScores[index-1].name = newName;
+                document.getElementById("R" + index.toString() + "Score").innerHTML = newScore;
+                document.getElementById("R" + index.toString() + "Name").innerHTML = newName;
+            }
+
+            function updateAllHighscores(){
+                for (i = 0;i<5;i++){
+                    document.getElementById("R" + (i+1).toString() + "Score").innerHTML = highScores[i].score;
+                    document.getElementById("R" + (i+1).toString() + "Name").innerHTML = highScores[i].name;
+                }
+            }
+
 
         </script>
     </head>
@@ -326,5 +349,50 @@
         <p id="moves">
             Moves = 0, Highscore = 0, Time = 00:00
         </p>
+        <hr />
+        <h2>
+            Highscores
+        </h2>
+        <table class="HighScoreTable">
+            <thead class="HScoreHead">
+                <td>Rank</td>
+                <td>Score</td>
+                <td>Name</td>
+            </thead>
+            <tr class="RowTypeA">
+                <td>1</td>
+                <td id="R1Score">111</td>
+                <td id="R1Name">AAA</td>
+            </tr>
+            <tr class="RowTypeB">
+                <td>2</td>
+                <td id="R2Score">222</td>
+                <td id="R2Name">BBB</td>
+            </tr>
+            <tr class="RowTypeA">
+                <td>3</td>
+                <td id="R3Score">333</td>
+                <td id="R3Name">CCC</td>
+            </tr>
+            <tr class="RowTypeB">
+                <td>4</td>
+                <td id="R4Score">444</td>
+                <td id="R4Name">DDD</td>
+            </tr>
+            <tr class="RowTypeA">
+                <td>5</td>
+                <td id="R5Score">555</td>
+                <td id="R5Name">EEE</td>
+            </tr>
+        </table>
+
+        <button onclick="updateHighscoreTable(123,'ABC',1)">Update 1</button>
+        <button onclick="updateHighscoreTable(123,'ABC',2)">Update 2</button>
+        <button onclick="updateHighscoreTable(123,'ABC',3)">Update 3</button>
+        <button onclick="updateHighscoreTable(123,'ABC',4)">Update 4</button>
+        <button onclick="updateHighscoreTable(123,'ABC',5)">Update 5</button>
+
+        <button onclick="updateAllHighscores()">Update all</button>
+
     </body>
 </html>

@@ -1,0 +1,4 @@
+Add methods for highscore table
+- Check is highscore
+- Update record at position and move others down
+- 
