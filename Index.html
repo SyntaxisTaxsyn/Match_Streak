@@ -47,11 +47,11 @@
             ]
 
             let highScores = [
-                {rank:1,score:1111,name:"AAAA"},
-                {rank:2,score:2222,name:"BBBB"},
-                {rank:3,score:3333,name:"CCCC"},
-                {rank:4,score:4444,name:"DDDD"},
-                {rank:5,score:5555,name:"EEEE"},
+                {rank:1,score:0,name:"AAAA"},
+                {rank:2,score:0,name:"BBBB"},
+                {rank:3,score:0,name:"CCCC"},
+                {rank:4,score:0,name:"DDDD"},
+                {rank:5,score:0,name:"EEEE"},
             ]
 
             function updateClock(){
@@ -316,6 +316,35 @@
                 document.getElementById("level").innerHTML = "Level - " + level;
             }
 
+            // takes a score value as a number and tests it for suitability in the highscore table
+            function checkisHighScore(chkScore){
+                for (i=0;i<5;i++){
+                    if (chkScore>highScores[i].score){
+                        //alert(i);
+                        shiftHighscoreTableDown(i);
+                        insertNewHighScore(chkScore,i);
+                        updateAllHighscores();
+                    }
+                }
+            }
+
+            // copies the elements of the highscore table to the next rank down, starting from the bottom, to make room for a new highscore
+            function shiftHighscoreTableDown(iShiftFrom){
+                for (j=3;j>=(iShiftFrom);j--){
+                    //alert(j);4
+                    highScores[j+1].name = highScores[j].name;
+                    highScores[j+1].score = highScores[j].score;
+                }
+            }
+
+            function insertNewHighScore(nHighScore,index){
+                var sName = "";
+                sName = prompt("Enter your name","Congratulations you have a new highscore")
+                highScores[index].score = nHighScore;
+                highScores[index].name = sName;
+            }
+
+
             // Using an index pointer, update the highscore table with a new set of values
             function updateHighscoreTable(newScore,newName,index){
                 highScores[index-1].score = newScore;
@@ -393,6 +422,9 @@
         <button onclick="updateHighscoreTable(123,'ABC',5)">Update 5</button>
 
         <button onclick="updateAllHighscores()">Update all</button>
+
+        <button onclick="checkisHighScore(Math.trunc(prompt('test score')))"> new high score </button>
+        
 
     </body>
 </html>
